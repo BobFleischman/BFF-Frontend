@@ -1,0 +1,54 @@
+<div>
+  <div class="row mb-2">
+    <h5 class="themeFontColor text-center">Houses currently on the market</h5>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Address</th>
+        <th>Country</th>
+        <th>Asking Price</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let house of houses">
+      <tr (click)="navigateToHouse(house.id)">
+        <td>{{ house.address }}</td>
+        <td>{{ house.country }}</td>
+        <td>{{ house.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Temp (F)</th>
+        <th>Summary</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let w of weather">
+      <tr >
+        <td>{{w.temperatureF}}</td>
+        <td>{{w.summary}}</td>
+        <td>{{w.date}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="authorizationService.canAddHouse()">
+    <button class="btn btn-primary" (click)="addHouse()">Add</button>
+  </div>
+</div>
+{{authorizationService.rolesClaim}}
+<hr>
+<div *ngIf="authorizationService.userClaims$ | async as userClaims">
+  <div *ngFor="let claim of userClaims">
+    <div>{{claim.type}}: <strong>{{claim.value}}</strong></div>
+  </div>
+  </div>
+
+<div *ngIf="weatherService.claims">
+  <h3>// show weather service claims</h3>
+  <div *ngFor="let claim of weatherService.claims">
+    <div>{{claim.type}}: <strong>{{claim.value}}</strong></div>
+  </div>
+</div>
